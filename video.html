@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolphin Video</title>
+    <style>
+        /* Basic reset to remove margins and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+        }
+        #playButton {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #playButton:hover {
+            background-color: #45a049;
+        }
+        #sikeMessage {
+            font-size: 24px;
+            color: red;
+            margin-top: 20px;
+        }
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures video covers the screen */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="textContainer">
+        <div>
+            <h1>Welcome, Dolphin Citizen!</h1>
+            <button id="playButton">Free Baggy Jeans</button>
+            <p id="sikeMessage" style="display:none;">Sike!</p>
+        </div>
+    </div>
+    <video id="dolphinVideo" playsinline style="display:none;">
+        <source src="video_2024-10-07_18-57-30.mp4" type="video/mp4"> <!-- Replace with your video file -->
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        document.getElementById('playButton').addEventListener('click', function() {
+            const video = document.getElementById('dolphinVideo');
+            const sikeMessage = document.getElementById('sikeMessage');
+            const textContainer = document.getElementById('textContainer');
+
+            // Show "Sike!" message
+            sikeMessage.style.display = 'block'; 
+            
+            // Hide the button
+            this.style.display = 'none';
+
+            // Wait for 1 second, then hide the text, show the video, unmute it, and play
+            setTimeout(() => {
+                sikeMessage.style.display = 'none'; // Hide "Sike!" message
+                textContainer.style.display = 'none'; // Hide text container
+                video.style.display = 'block'; // Show the video
+                video.muted = false; // Unmute the video explicitly
+                video.volume = 1.0; // Ensure the volume is up
+                video.play().catch(error => {
+                    console.error("Video play failed:", error); // Catch autoplay errors
+                });
+            }, 1000); // 1-second delay before playing the video
+        });
+
+        // Redirect back to verification page when the video ends
+        document.getElementById('dolphinVideo').addEventListener('ended', function() {
+            window.location.href = 'index.html'; // Adjust the path based on your folder structure
+        });
+    </script>
+</body>
+</html>
